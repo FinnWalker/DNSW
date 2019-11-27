@@ -46,35 +46,18 @@ app.use('/', express.static('public'));
 app.post('/dnsw/player', create);
 
 app.get('/dnsw/player', (req, res) => {
-    res.json({
-        "players":
-        [
-          {
-            "playerName": "Finn",
-            "homeTeam": "Australia",
-            "awayTeam": "England",
-            "topScore": "25.69"
-          },
-          {
-            "playerName": "Danuel",
-            "homeTeam": "Bulgaria",
-            "awayTeam": "Non Arians",
-            "topScore": "1.01"
-          },
-          {
-            "playerName": "Charlie",
-            "homeTeam": "Motherland",
-            "awayTeam": "Cis Gender",
-            "topScore": "999.99"
-          },
-          {
-            "playerName": "Angel",
-            "homeTeam": "England",
-            "awayTeam": "The EU",
-            "topScore": "0.00"
-          }
-        ]
-      });
+    participantModel.find({}, (err, participants) => {
+        let players = {};
+        for(let participant of participants) {
+            let player = {
+                playerName: participant.player_name,
+                homeTeam: participant.home_team,
+                awayTeam: participant.away_team
+            };
+            players.push(player);
+        }
+    });
+    res.json(players);
 })
 
 const port = 8060;
