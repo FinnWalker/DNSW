@@ -58,7 +58,7 @@ app.get("/dnsw/players", (req, res) => {
       };
       players.push(player);
     }
-    res.json(players);
+    res.json({players});
   });
   
 });
