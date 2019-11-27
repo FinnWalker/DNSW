@@ -47,7 +47,7 @@ app.post('/player', create);
 
 app.get('/dnsw/player', (req, res) => {
     res.json({
-        "playersRaw":
+        "players":
         [
           {
             "playerName": "Finn",
