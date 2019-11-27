@@ -11,7 +11,7 @@ const ParticipantSchema = new Schema({
     away_team: String
 });
 
-const ParticipantModel = mongoose.model("Participant", ParticipantSchema);
+const participantModel = mongoose.model("Participant", ParticipantSchema);
 const sanitize = require("mongo-sanitize");
 
 const create = function(req, res) {
