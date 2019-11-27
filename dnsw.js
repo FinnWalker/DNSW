@@ -45,6 +45,38 @@ app.use('/', express.static('public'));
 
 app.post('/player', create);
 
+app.get('/player', (req, res) => {
+    res.json({
+        "playersRaw":
+        [
+          {
+            "playerName": "Finn",
+            "homeTeam": "Australia",
+            "awayTeam": "England",
+            "topScore": "25.69"
+          },
+          {
+            "playerName": "Danuel",
+            "homeTeam": "Bulgaria",
+            "awayTeam": "Non Arians",
+            "topScore": "1.01"
+          },
+          {
+            "playerName": "Charlie",
+            "homeTeam": "Motherland",
+            "awayTeam": "Cis Gender",
+            "topScore": "999.99"
+          },
+          {
+            "playerName": "Angel",
+            "homeTeam": "England",
+            "awayTeam": "The EU",
+            "topScore": "0.00"
+          }
+        ]
+      });
+})
+
 const port = 8060;
 const server = app.listen(port, "0.0.0.0", () => {
   console.log(`App listening on port ${port}`);
