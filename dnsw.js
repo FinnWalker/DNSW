@@ -45,9 +45,9 @@ app.use('/', express.static('public'));
 
 app.post('/dnsw/player', create);
 
-app.get('/dnsw/player', (req, res) => {
+app.get('/dnsw/players', (req, res) => {
     participantModel.find({}, (err, participants) => {
-        let players = {};
+        let players = [];
         for(let participant of participants) {
             let player = {
                 playerName: participant.player_name,
