@@ -45,7 +45,7 @@ app.use('/', express.static('public'));
 
 app.post('/player', create);
 
-app.get('/player', (req, res) => {
+app.get('/dnsw/player', (req, res) => {
     res.json({
         "playersRaw":
         [
