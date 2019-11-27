@@ -43,7 +43,7 @@ app.use(morgan('combined'))
 app.use('/', express.static('public'));
 
 
-app.post('/player', create);
+app.post('/dnsw/player', create);
 
 app.get('/dnsw/player', (req, res) => {
     res.json({
