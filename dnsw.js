@@ -8,7 +8,8 @@ const Schema = mongoose.Schema;
 const ParticipantSchema = new Schema({
   player_name: String,
   home_team: String,
-  away_team: String
+  away_team: String,
+  top_score: String
 });
 
 const participantModel = mongoose.model("Participant", ParticipantSchema);
@@ -20,7 +21,7 @@ const create = function(req, res) {
   const away_team = sanitize(req.body.away_team);
 
   if (player_name && home_team && away_team) {
-    participantModel.create({ player_name, home_team, away_team }, function(
+    participantModel.create({ player_name, home_team, away_team, top_score: 0 }, function(
       err,
       participant
     ) {
@@ -54,7 +55,8 @@ app.get("/dnsw/players", (req, res) => {
       let player = {
         playerName: participant.player_name,
         homeTeam: participant.home_team,
-        awayTeam: participant.away_team
+        awayTeam: participant.away_team,
+        topScore: participant.top_score
       };
       players.push(player);
     }
