@@ -26,7 +26,7 @@ app.use(morgan("combined"));
 app.use("/", express.static("public"));
 
 function verifyRequest(req, res, next) {
-  if (req.headers["accesskey"] === "SpringWall") {
+  if (req.headers["accesskey"] === "dnsw") {
     next();
   } else {
     console.log(req.headers);
