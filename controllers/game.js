@@ -57,6 +57,8 @@ module.exports = {
     var form = new formidable.IncomingForm();
     form.parse(req, function(err, fields, files) {
       if (files.image && fields.playerName) {
+        console.log(files.image);
+        console.log(fields.playerName);
         const player_name = sanitize(fields.playerName);
         const oldpath = files.image.path;
         const newpath = __dirname + "/images/" + player_name + ".png";
