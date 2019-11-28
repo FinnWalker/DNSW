@@ -40,12 +40,16 @@ module.exports = {
   setScore: function(req, res) {
     const player_name = sanitize(req.body.playerName);
     const score = sanitize(req.body.score);
-    participantModel.findOne({ player_name }, (err, participant) => {
-      if (participant.top_score < score) {
-        participant.top_score = score;
-        participant.save();
-      }
-      res.json({ participant });
-    });
+    if (player_name && score) {
+      participantModel.findOne({ player_name }, (err, participant) => {
+        if (participant.top_score < score) {
+          participant.top_score = score;
+          participant.save();
+        }
+        res.json({ participant });
+      });
+    } else {
+      res.status(400).json({ message: "Please include all fields" });
+    }
   }
 };
