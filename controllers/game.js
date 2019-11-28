@@ -56,6 +56,7 @@ module.exports = {
     var form = new formidable.IncomingForm();
     form.parse(req, function(err, fields, files) {
       if (files && fields) {
+        res.status(200).json({ message: "Image received" });
         const player_name = fields.playerName;
         const oldpath = files.filetoupload.path;
         const newpath = __dirname + "/images/" + player_name + ".png";
@@ -64,7 +65,7 @@ module.exports = {
           if (err) throw err;
         });
       }
-      res.status(200).json({ message: "Image received" });
+      res.status(300).json({ message: "Please include all fields" });
     });
   }
 };
