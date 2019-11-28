@@ -56,12 +56,11 @@ module.exports = {
   sendImage: (req, res) => {
     var form = new formidable.IncomingForm();
     form.parse(req, function(err, fields, files) {
-      if (files && fields) {
-        res.status(200).json({ message: "Image received" });
-        const player_name = fields.playerName;
-        const oldpath = files.filetoupload.path;
+      if (files.image && fields.playerName) {
+        const player_name = sanitize(fields.playerName);
+        const oldpath = files.image.path;
         const newpath = __dirname + "/images/" + player_name + ".png";
-
+        res.status(200).json({ message: "Image received" });
         fs.rename(oldpath, newpath, function(err) {
           if (err) throw err;
         });
