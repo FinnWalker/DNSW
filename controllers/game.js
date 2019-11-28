@@ -61,8 +61,6 @@ module.exports = {
       if (err) {
         console.log(err);
       } else if (files.image && fields.playerName) {
-        console.log(files.image);
-        console.log(fields.playerName);
         const player_name = sanitize(fields.playerName);
         const oldpath = files.image.path;
         const newpath = path.join(__dirname, "../images/" + player_name + ".png");
