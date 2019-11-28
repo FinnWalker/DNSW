@@ -1,6 +1,8 @@
 const participantModel = require("../models/participantModel");
 const sanitize = require("mongo-sanitize");
 const formidable = require("formidable");
+const fs = require("fs");
+const path = require("path");
 
 module.exports = {
   create: function(req, res) {
@@ -54,24 +56,23 @@ module.exports = {
     }
   },
   sendImage: (req, res) => {
-    var form = new formidable.IncomingForm();
+    const form = new formidable.IncomingForm();
     form.parse(req, function(err, fields, files) {
-      if(err) {
+      if (err) {
         console.log(err);
-      }
-      else if (files.image && fields.playerName) {
+      } else if (files.image && fields.playerName) {
         console.log(files.image);
         console.log(fields.playerName);
         const player_name = sanitize(fields.playerName);
         const oldpath = files.image.path;
-        const newpath = __dirname + "/images/" + player_name + ".png";
+        const newpath = path.join(__dirname, "../images/" + player_name + ".png");
         res.status(200).json({ message: "Image received" });
         fs.rename(oldpath, newpath, function(err) {
           if (err) throw err;
         });
+      } else {
+        res.status(300).json({ message: "Please include all fields" });
       }
-      res.status(300).json({ message: "Please include all fields" });
     });
-    res.status(300).json({ message: "Please fdsfdsfs all fields" });
   }
 };
