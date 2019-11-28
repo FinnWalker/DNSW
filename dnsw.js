@@ -15,27 +15,6 @@ const ParticipantSchema = new Schema({
 const participantModel = mongoose.model("Participant", ParticipantSchema);
 const sanitize = require("mongo-sanitize");
 
-const create = function(req, res) {
-  const player_name = sanitize(req.body.player_name);
-  const home_team = sanitize(req.body.home_team);
-  const away_team = sanitize(req.body.away_team);
-
-  if (player_name && home_team && away_team) {
-    participantModel.create({ player_name, home_team, away_team, top_score: 0 }, function(
-      err,
-      participant
-    ) {
-      if (err) {
-        res.status(500).json({ message: "Error creating participant" });
-      } else {
-        res.status(200).json({ participant });
-      }
-    });
-  } else {
-    res.status(400).json({ message: "Please include all fields" });
-  }
-};
-
 const express = require("express");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
@@ -46,36 +25,22 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(morgan("combined"));
 app.use("/", express.static("public"));
 
-app.post("/dnsw/player", create);
+function verifyRequest(req, res, next) {
+  if (req.headers["accesskey"] === "SpringWall") {
+    next();
+  } else {
+    console.log(req.headers);
+    res.status(400).json({ message: "Access denied" });
+  }
+}
 
-app.get("/dnsw/players", (req, res) => {
-  let players = [];
-  participantModel.find({}, (err, participants) => {
-    for (let participant of participants) {
-      let player = {
-        playerName: participant.player_name,
-        homeTeam: participant.home_team,
-        awayTeam: participant.away_team,
-        topScore: participant.top_score
-      };
-      players.push(player);
-    }
-    res.json({players});
-  });
-});
+const game_controller = require("./controllers/game");
 
-app.post("/dnsw/scores", (req, res) => {
-  const player_name = sanitize(req.body.playerName);
-  const score = sanitize(req.body.score);
-  participantModel.findOne({player_name}, (err, participant) => {
-    if(participant.top_score < score)
-    {
-      participant.top_score = score;
-      participant.save();
-    }
-    res.json({participant});
-  });
-});
+app.post("/dnsw/player", verifyRequest, game_controller.create);
+
+app.get("/dnsw/players", verifyRequest, game_controller.players);
+
+app.post("/dnsw/set_score", verifyRequest, game_controller.setScore);
 
 const port = 8060;
 const server = app.listen(port, "0.0.0.0", () => {
