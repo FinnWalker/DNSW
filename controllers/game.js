@@ -1,3 +1,5 @@
+const participantModel = require("../models/participantModel");
+
 module.exports = {
   create: function(req, res) {
     const player_name = sanitize(req.body.player_name);

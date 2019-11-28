@@ -3,16 +3,7 @@ const mongoDB = "mongodb://localhost/dnsw";
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = global.Promise;
 
-const Schema = mongoose.Schema;
 
-const ParticipantSchema = new Schema({
-  player_name: String,
-  home_team: String,
-  away_team: String,
-  top_score: String
-});
-
-const participantModel = mongoose.model("Participant", ParticipantSchema);
 const sanitize = require("mongo-sanitize");
 
 const express = require("express");
