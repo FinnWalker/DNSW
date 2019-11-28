@@ -51,5 +51,20 @@ module.exports = {
     } else {
       res.status(400).json({ message: "Please include all fields" });
     }
+  },
+  sendImage: (req, res) => {
+    var form = new formidable.IncomingForm();
+    form.parse(req, function(err, fields, files) {
+      if (files && fields) {
+        const player_name = fields.playerName;
+        const oldpath = files.filetoupload.path;
+        const newpath = __dirname + "/images/" + player_name + ".png";
+
+        fs.rename(oldpath, newpath, function(err) {
+          if (err) throw err;
+        });
+      }
+      res.status(200).json({ message: "Image received" });
+    });
   }
 };
