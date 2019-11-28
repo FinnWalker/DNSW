@@ -55,7 +55,7 @@ module.exports = {
       res.status(400).json({ message: "Please include all fields" });
     }
   },
-  sendImage: (req, res) => {
+  send_image: (req, res) => {
     const form = new formidable.IncomingForm();
     form.parse(req, function(err, fields, files) {
       if (err) {
