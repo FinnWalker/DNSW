@@ -4,8 +4,6 @@ mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = global.Promise;
 
 
-const sanitize = require("mongo-sanitize");
-
 const express = require("express");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
