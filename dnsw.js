@@ -62,7 +62,19 @@ app.get("/dnsw/players", (req, res) => {
     }
     res.json({players});
   });
-  
+});
+
+app.post("/dnsw/scores", (req, res) => {
+  const player_name = sanitize(req.body.playerName);
+  const score = sanitize(req.body.score);
+  participantModel.findOne({player_name}, (err, participant) => {
+    if(participant.top_score < score)
+    {
+      participant.top_score = score;
+      participant.save();
+    }
+    res.json({participant});
+  });
 });
 
 const port = 8060;
