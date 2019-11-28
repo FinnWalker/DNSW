@@ -31,7 +31,7 @@ app.get("/dnsw/players", verifyRequest, game_controller.players);
 
 app.post("/dnsw/set_score", verifyRequest, game_controller.setScore);
 
-app.post("/dnsw/set_score", verifyRequest, game_controller.sendImage);
+app.post("/dnsw/send_image", verifyRequest, game_controller.sendImage);
 
 const port = 8060;
 const server = app.listen(port, "0.0.0.0", () => {
