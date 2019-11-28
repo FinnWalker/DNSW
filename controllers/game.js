@@ -1,5 +1,6 @@
 const participantModel = require("../models/participantModel");
 const sanitize = require("mongo-sanitize");
+const formidable = require("formidable");
 
 module.exports = {
   create: function(req, res) {
