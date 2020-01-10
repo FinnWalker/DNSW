@@ -33,7 +33,7 @@ module.exports = {
           playerName: participant.player_name,
           homeTeam: participant.home_team,
           awayTeam: participant.away_team,
-          topScore: participant.top_score
+          topScore: participant.top_score.toString()
         };
         players.push(player);
       }
