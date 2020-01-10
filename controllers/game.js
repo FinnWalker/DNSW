@@ -27,7 +27,7 @@ module.exports = {
   },
   players: function(req, res) {
     let players = [];
-    participantModel.find({}, null, {sort: {top_score: 1}}, (err, participants) => {
+    participantModel.find({}, null, {sort: {'top_score': -1}}, (err, participants) => {
       for (let participant of participants) {
         let player = {
           playerName: participant.player_name,
