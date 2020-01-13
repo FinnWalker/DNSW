@@ -51,11 +51,17 @@ module.exports = {
     const score = sanitize(req.body.score);
     if (player_name && score) {
       participantModel.findOne({ player_name }, (err, participant) => {
-        if (participant.top_score < score) {
-          participant.top_score = score;
-          participant.save();
+        if(participant)
+        {
+          if (participant.top_score < score) {
+            participant.top_score = score;
+            participant.save();
+          }
+          res.json({ participant });
+        } else {
+          res.status(400).json({ message: "Player does not exist"});
         }
-        res.json({ participant });
+        
       });
     } else {
       res.status(400).json({ message: "Please include all fields" });
