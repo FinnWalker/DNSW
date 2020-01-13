@@ -15,7 +15,7 @@ module.exports = {
     const home_team = sanitize(req.body.home_team);
     const away_team = sanitize(req.body.away_team);
 
-    if (player_name && && first_name && last_name && date_of_birth && post_code && email && home_team && away_team) {
+    if (player_name && first_name && last_name && date_of_birth && post_code && email && home_team && away_team) {
       participantModel.create(
         { player_name, first_name, last_name, date_of_birth, post_code, email, home_team, away_team, top_score: 0 },
         function(err, participant) {
