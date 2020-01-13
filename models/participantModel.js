@@ -8,6 +8,7 @@ const ParticipantSchema = new Schema({
   last_name: String,
   date_of_birth: String,
   post_code: String,
+  email: String,
   home_team: String,
   away_team: String,
   top_score: Number
