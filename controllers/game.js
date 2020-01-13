@@ -7,12 +7,17 @@ const path = require("path");
 module.exports = {
   create: function(req, res) {
     const player_name = sanitize(req.body.player_name);
+    const first_name = sanitize(req.body.first_name);
+    const last_name = sanitize(req.body.last_name);
+    const date_of_birth = sanitize(req.body.date_of_birth);
+    const post_code = sanitize(req.body.post_code);
+    const email = sanitize(req.body.email);
     const home_team = sanitize(req.body.home_team);
     const away_team = sanitize(req.body.away_team);
 
-    if (player_name && home_team && away_team) {
+    if (player_name && && first_name && last_name && date_of_birth && post_code && email && home_team && away_team) {
       participantModel.create(
-        { player_name, home_team, away_team, top_score: 0 },
+        { player_name, first_name, last_name, date_of_birth, post_code, email, home_team, away_team, top_score: 0 },
         function(err, participant) {
           if (err) {
             res.status(500).json({ message: "Error creating participant" });
@@ -33,7 +38,8 @@ module.exports = {
           playerName: participant.player_name,
           homeTeam: participant.home_team,
           awayTeam: participant.away_team,
-          topScore: participant.top_score.toString()
+          topScore: participant.top_score.toString(),
+          email: participant.email
         };
         players.push(player);
       }
