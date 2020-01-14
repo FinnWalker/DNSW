@@ -22,12 +22,12 @@ function decrypt(text) {
 participantModel.findOne({ player_name: "Finn" }, (participant, err) => {
   if (err) console.log(err);
   else if (participant) {
-    console.log("participant found");
-    console.log(participant);
+    //console.log("participant found");
+    //console.log(participant);
     participant.email = "finn3walker@gmail.com";
     participant.save().then(() => {
-      console.log("participant changed");
-      console.log(participant);
+      //console.log("participant changed");
+      //console.log(participant);
     });
   } else {
     console.log("fuck");
