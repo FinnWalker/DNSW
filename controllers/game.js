@@ -5,6 +5,20 @@ const formidable = require("formidable");
 //const path = require("path");
 const nodemailer = require("nodemailer");
 
+require('dotenv').config();
+
+const crypto = require('crypto');
+const algorithm = 'aes-256-cbc';
+const key = crypto.scryptSync(process.env.TEST, 'salt', 32);
+const iv = crypto.scryptSync(process.env.TEST, 'salt', 16);
+ 
+ function decrypt(text) {
+  let decipher = crypto.createDecipheriv(algorithm, key, iv);
+  let decrypted = decipher.update(text, 'hex');
+  decrypted += decipher.final();
+  return decrypted.toString();
+ }
+
 async function email(email, name, image_path) {
   let transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
@@ -145,7 +159,7 @@ module.exports = {
         participantModel.findOne({ player_name:fields.playerName }, (err, participant) => {
           if (participant) {
             
-            email("cricketemailtemp@gmail.com", player_name, image_path);
+            email(decrypt(player.email), player_name, image_path);
             res.json({ participant });
           } else {
             res.status(400).json({ message: "Player does not exist" });

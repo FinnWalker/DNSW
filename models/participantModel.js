@@ -12,13 +12,6 @@ function encrypt(text) {
   encrypted = Buffer.concat([encrypted, cipher.final()]);
   return encrypted.toString('hex');
  }
- 
- function decrypt(text) {
-  let decipher = crypto.createDecipheriv(algorithm, key, iv);
-  let decrypted = decipher.update(text, 'hex');
-  decrypted += decipher.final();
-  return decrypted.toString();
- }
 
 const Schema = mongoose.Schema;
 
