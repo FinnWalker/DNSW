@@ -160,7 +160,8 @@ module.exports = {
           (err, participant) => {
             if (participant) {
               email(decrypt(participant.email), player_name, image_path);
-
+              
+              /*
               res.json({
                 first_name: decrypt(participant.first_name),
                 last_name: decrypt(participant.last_name),
@@ -168,6 +169,8 @@ module.exports = {
                 post_code: decrypt(participant.post_code),
                 email: decrypt(participant.email)
               });
+              */
+              res.status(200).json({message: "image received"});
             } else {
               res.status(400).json({ message: "Player does not exist" });
             }
