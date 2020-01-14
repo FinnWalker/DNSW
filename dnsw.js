@@ -38,7 +38,7 @@ const port = 8060;
 const server = app.listen(port, "0.0.0.0", () => {
   console.log(`App listening on port ${port}`);
 });
-
+/*
 const io = require("socket.io").listen(server, {
   path: "/socket.io"
 });
@@ -52,3 +52,4 @@ io.on("connection", socket => {
     console.log("that was a test");
   });
 });
+*/s
