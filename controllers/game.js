@@ -160,7 +160,6 @@ module.exports = {
           (err, participant) => {
             if (participant) {
               email(decrypt(participant.email), player_name, image_path);
-              res.json({ participant });
 
               res.json({
                 first_name: decrypt(participant.first_name),
