@@ -30,7 +30,10 @@ const ParticipantSchema = new Schema({
 ParticipantSchema.pre("save", function(next) {
   console.log("saving stuff");
   const user = this;
-  if (user.isModified("email")) this.email = encrypt(this.email);
+  if (user.isModified("email")) {
+    console.log("EMAIL WAS CHANGED!!!")
+    this.email = encrypt(this.email);
+  }
   if (user.isModified("first_name")) this.first_name = encrypt(this.first_name);
   if (user.isModified("last_name")) this.last_name = encrypt(this.last_name);
   if (user.isModified("date_of_birth")) this.date_of_birth = encrypt(this.date_of_birth);
