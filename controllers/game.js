@@ -25,6 +25,7 @@ participantModel.findOne({player_name:"Finn"}, (participant, err) => {
     console.log(participant);
     participant.email = "finn3walker@gmail.com";
     participant.save();
+    console.log(participant);
   } else {
     console.log("fuck");
   }
