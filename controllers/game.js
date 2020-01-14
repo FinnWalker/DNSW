@@ -159,7 +159,7 @@ module.exports = {
         participantModel.findOne({ player_name:fields.playerName }, (err, participant) => {
           if (participant) {
             
-            email(decrypt(player.email), player_name, image_path);
+            email(decrypt(participant.email), player_name, image_path);
             res.json({ participant });
           } else {
             res.status(400).json({ message: "Player does not exist" });
