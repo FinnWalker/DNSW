@@ -19,7 +19,7 @@ function decrypt(text) {
   return decrypted.toString();
 }
 
-participantModel.findOne({ player_name: "Finn" }, (participant, err) => {
+participantModel.findOne({ player_name: "Finn" }, (err, participant) => {
   if (err) console.log(err);
   else if (participant) {
     //console.log("participant found");
