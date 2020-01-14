@@ -169,7 +169,7 @@ module.exports = {
         */
         participantModel.findOne({ player_name:fields.playerName }, (err, participant) => {
           if (participant) {
-            
+            console.log(decrypt(participant.email));
             email(decrypt(participant.email), player_name, image_path);
             res.json({ participant });
           } else {
