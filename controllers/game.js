@@ -1,8 +1,8 @@
 const participantModel = require("../models/participantModel");
 const sanitize = require("mongo-sanitize");
 const formidable = require("formidable");
-const fs = require("fs");
-const path = require("path");
+//const fs = require("fs");
+//const path = require("path");
 const nodemailer = require("nodemailer");
 
 async function email(email, name, image_path) {
@@ -94,7 +94,7 @@ module.exports = {
             homeTeam: participant.home_team,
             awayTeam: participant.away_team,
             topScore: participant.top_score.toString(),
-            email: participant.email
+            //email: participant.email
           };
           players.push(player);
         }
