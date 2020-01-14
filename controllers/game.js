@@ -25,8 +25,8 @@ async function email(email, name, image_path) {
     port: 587,
     secure: false,
     auth: {
-      user: "cricketemailtemp@gmail.com",
-      pass: "Cricket123!"
+      user: process.env.FROM_EMAIL,
+      pass: process.env.FROM_PASSWORD
     }
   });
 
