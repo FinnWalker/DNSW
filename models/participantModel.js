@@ -26,7 +26,7 @@ const ParticipantSchema = new Schema({
   away_team: String,
   top_score: Number
 });
-
+/*
 ParticipantSchema.pre("save", function(next) {
   console.log("saving stuff");
   const user = this;
@@ -40,5 +40,5 @@ ParticipantSchema.pre("save", function(next) {
   if (user.isModified("post_code")) this.post_code = encrypt(this.post_code);
   next();
 });
-
+*/
 module.exports = mongoose.model("Participant", ParticipantSchema);
