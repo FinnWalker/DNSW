@@ -3,8 +3,8 @@ require('dotenv').config();
 
 const crypto = require('crypto');
 const algorithm = 'aes-256-cbc';
-const key = crypto.scryptSync(process.env.TEST, 'salt', 32);
-const iv = crypto.scryptSync(process.env.TEST, 'salt', 16);
+const key = crypto.scryptSync(process.env.ENCRYPTION_KEY, 'salt', 32);
+const iv = crypto.scryptSync(process.env.ENCRYPTION_KEY, 'salt', 16);
 
 function encrypt(text) {
   let cipher = crypto.createCipheriv(algorithm, key, iv);
