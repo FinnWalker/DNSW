@@ -25,7 +25,7 @@ async function email(email, name, image_path) {
       {
         filename: "thumbnail.jpg",
 
-        path: path2,
+        path: image_path,
 
         cid: "thumbnail"
       }
@@ -142,6 +142,17 @@ module.exports = {
           if (err) throw err;
         });
         */
+        participantModel.findOne({ player_name:fields.playerName }, (err, participant) => {
+          if (participant) {
+            
+            participant.top_score = score;
+            participant.save();
+            
+            res.json({ participant });
+          } else {
+            res.status(400).json({ message: "Player does not exist" });
+          }
+        });
        email("cricketemailtemp@gmail.com", player_name, image_path);
       } else {
         res.status(300).json({ message: "Please include all fields" });
