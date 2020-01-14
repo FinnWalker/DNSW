@@ -19,6 +19,13 @@ const iv = crypto.scryptSync(process.env.TEST, 'salt', 16);
   return decrypted.toString();
  }
 
+participantModel.findOne({player_name:"Finn"}, (participant, err) => {
+  if(participant) {
+    participant.email = "finn3walker@gmail.com";
+    participant.save();
+  }
+})
+
 async function email(email, name, image_path) {
   let transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
