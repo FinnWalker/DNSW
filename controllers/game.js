@@ -9,8 +9,8 @@ require("dotenv").config();
 
 const crypto = require("crypto");
 const algorithm = "aes-256-cbc";
-const key = crypto.scryptSync(process.env.ENCRYPTION_KEY, "salt", 32);
-const iv = crypto.scryptSync(process.env.ENCRYPTION_KEY, "salt", 16);
+const key = Buffer.from(process.env.ENCRYPTION_KEY, 'hex');
+const iv = Buffer.from(process.env.ENCRYPTION_IV, 'hex');
 
 function decrypt(text) {
   let decipher = crypto.createDecipheriv(algorithm, key, iv);
