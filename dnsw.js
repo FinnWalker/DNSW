@@ -3,6 +3,7 @@ const mongoDB = "mongodb://localhost/dnsw";
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = global.Promise;
 
+require('dotenv').config();
 
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -15,7 +16,7 @@ app.use(morgan("combined"));
 app.use("/", express.static("public"));
 
 function verifyRequest(req, res, next) {
-  if (req.headers["accesskey"] === "dnsw") {
+  if (req.headers["accesskey"] === process.env.ACCESS_KEY) {
     next();
   } else {
     console.log(req.headers);
