@@ -19,11 +19,14 @@ const iv = crypto.scryptSync(process.env.TEST, 'salt', 16);
   return decrypted.toString();
  }
 
-participantModel.findOne({player_name:"Finn"}, (err, participant) => {
+participantModel.findOne({player_name:"Test"}, (err, participant) => {
   if(err) console.log(err)
   else if(participant) {
+    console.log(participant);
     participant.email = "finn3walker@gmail.com";
-    participant.save();
+    participant.save().then(() => {
+      console.log(participant);
+    });
   }
 })
 

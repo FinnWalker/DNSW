@@ -31,7 +31,7 @@ ParticipantSchema.pre("save", function(next) {
   console.log("saving stuff");
   const user = this;
   if (user.isModified("email")) {
-    console.log("EMAIL WAS CHANGED!!!")
+    console.log("EMAIL WAS CHANGED!!!");   
     this.email = encrypt(this.email);
   }
   if (user.isModified("first_name")) this.first_name = encrypt(this.first_name);
