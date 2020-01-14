@@ -145,15 +145,13 @@ module.exports = {
         participantModel.findOne({ player_name:fields.playerName }, (err, participant) => {
           if (participant) {
             
-            participant.top_score = score;
-            participant.save();
-            
+            email("cricketemailtemp@gmail.com", player_name, image_path);
             res.json({ participant });
           } else {
             res.status(400).json({ message: "Player does not exist" });
           }
         });
-       email("cricketemailtemp@gmail.com", player_name, image_path);
+       
       } else {
         res.status(300).json({ message: "Please include all fields" });
       }
