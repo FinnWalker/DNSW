@@ -34,8 +34,6 @@ ParticipantSchema.pre("save", function(next) {
   if (user.isModified("last_name")) this.last_name = encrypt(this.last_name);
   if (user.isModified("date_of_birth")) this.date_of_birth = encrypt(this.date_of_birth);
   if (user.isModified("post_code")) this.post_code = encrypt(this.post_code);
-  if (user.isModified("email")) this.email = encrypt(this.email);
-  if (user.isModified("email")) this.email = encrypt(this.email);
   next();
 });
 
