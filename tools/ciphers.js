@@ -1,7 +1,7 @@
 require('dotenv').config();
 const { createCipheriv, createDecipheriv, randomBytes } = require("crypto");
 const algorithm = "aes-256-ctr";
-const key = process.env.ENCRYPTION_KEY;
+const key = Buffer.from(process.env.ENCRYPTION_KEY, 'hex');
 const inputEncoding = "utf8";
 const outputEncoding = "hex";
 
