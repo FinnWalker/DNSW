@@ -85,6 +85,7 @@ module.exports = {
         },
         function(err, participant) {
           if (err) {
+            console.log(err);
             res.status(500).json({ message: "Error creating participant" });
           } else {
             res.status(200).json({ participant });
