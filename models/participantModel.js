@@ -31,11 +31,11 @@ const ParticipantSchema = new Schema({
 
 ParticipantSchema.pre("save", function(next) {
   const participant = this;  
-  if(participant.isModified("email")) this.participant = ciphers.encrypt(this.email);
-  if(participant.isModified("first_name")) this.participant = ciphers.encrypt(this.first_name);
-  if(participant.isModified("last_name")) this.participant = ciphers.encrypt(this.last_name);
-  if(participant.isModified("date_of_birth")) this.participant = ciphers.encrypt(this.date_of_birth);
-  if(participant.isModified("post_code")) this.participant = ciphers.encrypt(this.post_code);
+  if(participant.isModified("email")) this.email = ciphers.encrypt(this.email);
+  if(participant.isModified("first_name")) this.first_name = ciphers.encrypt(this.first_name);
+  if(participant.isModified("last_name")) this.last_name = ciphers.encrypt(this.last_name);
+  if(participant.isModified("date_of_birth")) this.date_of_birth = ciphers.encrypt(this.date_of_birth);
+  if(participant.isModified("post_code")) this.post_code = ciphers.encrypt(this.post_code);
   
   next();
 });
