@@ -6,7 +6,7 @@ const algorithm = 'aes-256-cbc';
 const key = Buffer.from(process.env.ENCRYPTION_KEY, 'hex');
 const iv = Buffer.from(process.env.ENCRYPTION_IV, 'hex');
 
-const ciphers = require("../../tools/ciphers");
+const ciphers = require("../tools/ciphers");
 
 function encrypt(text) {
   let cipher = crypto.createCipheriv(algorithm, key, iv);
