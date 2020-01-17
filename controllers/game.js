@@ -5,19 +5,7 @@ const formidable = require("formidable");
 //const path = require("path");
 const nodemailer = require("nodemailer");
 
-require("dotenv").config();
-
-const crypto = require("crypto");
-const algorithm = "aes-256-cbc";
-const key = Buffer.from(process.env.ENCRYPTION_KEY, 'hex');
-const iv = Buffer.from(process.env.ENCRYPTION_IV, 'hex');
-
-function decrypt(text) {
-  let decipher = crypto.createDecipheriv(algorithm, key, iv);
-  let decrypted = decipher.update(text, "hex");
-  decrypted += decipher.final();
-  return decrypted.toString();
-}
+const ciphers = require('../tools/ciphers');
 
 async function email(email, name, image_path) {
   let transporter = nodemailer.createTransport({
@@ -160,7 +148,7 @@ module.exports = {
           { player_name: fields.playerName },
           (err, participant) => {
             if (participant) {
-              email(decrypt(participant.email), player_name, image_path);
+              email(ciphers.decrypt(participant.email), player_name, image_path);
               
               /*
               res.json({
