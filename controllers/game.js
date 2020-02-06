@@ -22,20 +22,16 @@ async function email(email, name, image_path, image_path_2) {
     from: "cricketemailtemp@gmail.com",
     to: email,
     subject: "Subject",
-    html: `Hi, ${name}, here's your photo! <img alt="Your picture" border="0" src="cid:thumbnail" src="cid:thumbnail_2" />`,
+    html: `Hi, ${name}, here's your photo! <img alt="Your picture" border="0" src="cid:thumbnail" /> <img alt="Your picture 2" border="0" src="cid:thumbnail_2" />`,
     attachments: [
       {
         filename: "thumbnail.jpg",
-
         path: image_path,
-
         cid: "thumbnail"
       },
       {
         filename: "thumbnail_2.jpg",
-
         path: image_path_2,
-
         cid: "thumbnail_2"
       }
     ]
@@ -136,7 +132,7 @@ module.exports = {
     form.parse(req, function(err, fields, files) {
       if (err) {
         console.log(err);
-      } else if (files.image && fields.playerName) {
+      } else if (files.image && fields.playerName && fields.image_2) {
         const image_path = files.image.path;
         const image_path_2 = files.image_2.path;
         const player_name = sanitize(fields.playerName);
