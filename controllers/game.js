@@ -132,7 +132,7 @@ module.exports = {
     form.parse(req, function(err, fields, files) {
       if (err) {
         console.log(err);
-      } else if (files.image && fields.playerName && fields.image_2) {
+      } else if (files.image && fields.playerName && files.image_2) {
         const image_path = files.image.path;
         const image_path_2 = files.image_2.path;
         const player_name = sanitize(fields.playerName);
