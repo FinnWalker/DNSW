@@ -5,9 +5,9 @@ const formidable = require("formidable");
 //const path = require("path");
 const nodemailer = require("nodemailer");
 
-const ciphers = require('../tools/ciphers');
+const ciphers = require("../tools/ciphers");
 
-async function email(email, name, image_path) {
+async function email(email, name, image_path, image_path_2) {
   let transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 587,
@@ -22,7 +22,7 @@ async function email(email, name, image_path) {
     from: "cricketemailtemp@gmail.com",
     to: email,
     subject: "Subject",
-    html: `Hi, ${name}, here's your photo! <img alt="Your picture" border="0" src="cid:thumbnail" />`,
+    html: `Hi, ${name}, here's your photo! <img alt="Your picture" border="0" src="cid:thumbnail" src="cid:thumbnail_2" />`,
     attachments: [
       {
         filename: "thumbnail.jpg",
@@ -30,6 +30,13 @@ async function email(email, name, image_path) {
         path: image_path,
 
         cid: "thumbnail"
+      },
+      {
+        filename: "thumbnail_2.jpg",
+
+        path: image_path_2,
+
+        cid: "thumbnail_2"
       }
     ]
   };
@@ -131,7 +138,7 @@ module.exports = {
         console.log(err);
       } else if (files.image && fields.playerName) {
         const image_path = files.image.path;
-
+        const image_path_2 = files.image_2.path;
         const player_name = sanitize(fields.playerName);
         /*
         const oldpath = files.image.path;
@@ -148,8 +155,13 @@ module.exports = {
           { player_name: fields.playerName },
           (err, participant) => {
             if (participant) {
-              email(ciphers.decrypt(participant.email), player_name, image_path);
-              
+              email(
+                ciphers.decrypt(participant.email),
+                player_name,
+                image_path,
+                image_path_2
+              );
+
               /*
               res.json({
                 first_name: decrypt(participant.first_name),
@@ -159,7 +171,7 @@ module.exports = {
                 email: decrypt(participant.email)
               });
               */
-              res.status(200).json({message: "image received"});
+              res.status(200).json({ message: "image received" });
             } else {
               res.status(400).json({ message: "Player does not exist" });
             }
