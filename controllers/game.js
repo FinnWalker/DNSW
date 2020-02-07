@@ -190,5 +190,30 @@ module.exports = {
         res.status(300).json({ message: "Please include all fields" });
       }
     });
+  },
+  data: async () => {
+    participantModel
+      .find()
+      .exec()
+      .then(participants => {
+        let data = [];
+        for (let participant of participants) {
+          data.push({
+            player_name,
+            name: ciphers.decrypt(participant.name),
+            date_of_birth: ciphers.decrypt(participant.date_of_birth),
+            state: ciphers.decrypt(participant.state),
+            email: ciphers.decrypt(participant.email),
+            home_team,
+            away_team,
+            top_score
+          });
+        }
+        res.status(200).json(data);
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({ message: "Error creating participant" });
+      });
   }
 };

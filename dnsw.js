@@ -3,7 +3,7 @@ const mongoDB = "mongodb://localhost/dnsw";
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = global.Promise;
 
-require('dotenv').config();
+require("dotenv").config();
 
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -29,7 +29,7 @@ const game_controller = require("./controllers/game");
 app.post("/dnsw/player", verifyRequest, game_controller.create);
 
 app.get("/dnsw/players", verifyRequest, game_controller.players);
-
+app.get("/dnsw/data", verifyRequest, game_controller.data);
 app.post("/dnsw/set_score", verifyRequest, game_controller.setScore);
 
 app.post("/dnsw/send_image", verifyRequest, game_controller.sendImage);
