@@ -61,7 +61,7 @@ module.exports = {
       away_team
     ) {
       await participantModel
-        .find({ player_name })
+        .findOne({ player_name })
         .exec()
         .then(player => {
           if (player) {
