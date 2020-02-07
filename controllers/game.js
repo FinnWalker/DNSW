@@ -191,7 +191,7 @@ module.exports = {
       }
     });
   },
-  data: async () => {
+  data: () => {
     participantModel
       .find()
       .exec()
