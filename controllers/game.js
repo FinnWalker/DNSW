@@ -63,8 +63,9 @@ module.exports = {
       await participantModel
         .find({ name })
         .exec()
-        .then((err, name) => {
+        .then((name, err) => {
           if (err) {
+            console.log(err);
             res.status(500).json({ message: "An error occurred" });
           } else if (name) {
             res.status(400).json({ message: "Name taken" });
