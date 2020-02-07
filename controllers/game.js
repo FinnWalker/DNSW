@@ -67,7 +67,8 @@ module.exports = {
           if (err) {
             console.log(err);
             res.status(500).json({ message: "An error occurred" });
-          } else if (name) {
+          } else if (playerName) {
+            console.log(playerName);
             res.status(400).json({ message: "Name taken" });
           } else {
             participantModel.create(
