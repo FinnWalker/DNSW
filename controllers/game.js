@@ -44,20 +44,18 @@ async function email(email, name, image_path, image_path_2) {
 module.exports = {
   create: function(req, res) {
     const player_name = sanitize(req.body.player_name);
-    const first_name = sanitize(req.body.first_name);
-    const last_name = sanitize(req.body.last_name);
+    const name = sanitize(req.body.name);
     const date_of_birth = sanitize(req.body.date_of_birth);
-    const post_code = sanitize(req.body.post_code);
+    const state = sanitize(req.body.state);
     const email = sanitize(req.body.email);
     const home_team = sanitize(req.body.home_team);
     const away_team = sanitize(req.body.away_team);
 
     if (
       player_name &&
-      first_name &&
-      last_name &&
+      name &&
       date_of_birth &&
-      post_code &&
+      state &&
       email &&
       home_team &&
       away_team
@@ -65,10 +63,9 @@ module.exports = {
       participantModel.create(
         {
           player_name,
-          first_name,
-          last_name,
+          name,
           date_of_birth,
-          post_code,
+          state,
           email,
           home_team,
           away_team,

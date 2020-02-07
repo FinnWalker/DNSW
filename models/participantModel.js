@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
-require('dotenv').config();
+require("dotenv").config();
 
-const crypto = require('crypto');
-const algorithm = 'aes-256-cbc';
-const key = Buffer.from(process.env.ENCRYPTION_KEY, 'hex');
-const iv = Buffer.from(process.env.ENCRYPTION_IV, 'hex');
+const crypto = require("crypto");
+const algorithm = "aes-256-cbc";
+const key = Buffer.from(process.env.ENCRYPTION_KEY, "hex");
+const iv = Buffer.from(process.env.ENCRYPTION_IV, "hex");
 
 const ciphers = require("../tools/ciphers");
 
@@ -12,17 +12,16 @@ function encrypt(text) {
   let cipher = crypto.createCipheriv(algorithm, key, iv);
   let encrypted = cipher.update(text);
   encrypted = Buffer.concat([encrypted, cipher.final()]);
-  return encrypted.toString('hex');
- }
+  return encrypted.toString("hex");
+}
 
 const Schema = mongoose.Schema;
 
 const ParticipantSchema = new Schema({
   player_name: String,
-  first_name: String,
-  last_name: String,
+  name: String,
   date_of_birth: String,
-  post_code: String,
+  state: String,
   email: String,
   home_team: String,
   away_team: String,
@@ -30,15 +29,14 @@ const ParticipantSchema = new Schema({
 });
 
 ParticipantSchema.pre("save", function(next) {
-  const participant = this;  
-  if(participant.isModified("email")) this.email = ciphers.encrypt(this.email);
-  if(participant.isModified("first_name")) this.first_name = ciphers.encrypt(this.first_name);
-  if(participant.isModified("last_name")) this.last_name = ciphers.encrypt(this.last_name);
-  if(participant.isModified("date_of_birth")) this.date_of_birth = ciphers.encrypt(this.date_of_birth);
-  if(participant.isModified("post_code")) this.post_code = ciphers.encrypt(this.post_code);
-  
+  const participant = this;
+  if (participant.isModified("email")) this.email = ciphers.encrypt(this.email);
+  if (participant.isModified("name")) this.name = ciphers.encrypt(this.name);
+  if (participant.isModified("date_of_birth"))
+    this.date_of_birth = ciphers.encrypt(this.date_of_birth);
+  if (participant.isModified("state")) this.state = ciphers.encrypt(this.state);
+
   next();
 });
-
 
 module.exports = mongoose.model("Participant", ParticipantSchema);
