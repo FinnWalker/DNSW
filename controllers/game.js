@@ -63,36 +63,36 @@ module.exports = {
       await participantModel
         .find({ name })
         .exec()
-        .then((name, err) => {
+        .then((err, name) => {
           if (err) {
             res.status(500).json({ message: "An error occurred" });
-            return;
           } else if (name) {
             res.status(400).json({ message: "Name taken" });
-            return;
+          } else {
+            participantModel.create(
+              {
+                player_name,
+                name,
+                date_of_birth,
+                state,
+                email,
+                home_team,
+                away_team,
+                top_score: 0
+              },
+              function(err, participant) {
+                if (err) {
+                  console.log(err);
+                  res
+                    .status(500)
+                    .json({ message: "Error creating participant" });
+                } else {
+                  res.status(200).json({ participant });
+                }
+              }
+            );
           }
         });
-
-      participantModel.create(
-        {
-          player_name,
-          name,
-          date_of_birth,
-          state,
-          email,
-          home_team,
-          away_team,
-          top_score: 0
-        },
-        function(err, participant) {
-          if (err) {
-            console.log(err);
-            res.status(500).json({ message: "Error creating participant" });
-          } else {
-            res.status(200).json({ participant });
-          }
-        }
-      );
     } else {
       res.status(400).json({ message: "Please include all fields" });
     }
