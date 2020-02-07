@@ -191,7 +191,7 @@ module.exports = {
       }
     });
   },
-  data: () => {
+  data: (req, res) => {
     participantModel
       .find()
       .exec()
