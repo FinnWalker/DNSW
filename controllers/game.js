@@ -204,9 +204,9 @@ module.exports = {
             date_of_birth: ciphers.decrypt(participant.date_of_birth),
             state: ciphers.decrypt(participant.state),
             email: ciphers.decrypt(participant.email),
-            home_team,
-            away_team,
-            top_score
+            home_team: player.home_team,
+            away_team: player.away_team,
+            top_score: player.top_score
           });
         }
         res.status(200).json(data);
