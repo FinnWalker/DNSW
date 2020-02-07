@@ -199,7 +199,7 @@ module.exports = {
         let data = [];
         for (let participant of participants) {
           data.push({
-            player_name,
+            player_name: participant.player_name,
             name: ciphers.decrypt(participant.name),
             date_of_birth: ciphers.decrypt(participant.date_of_birth),
             state: ciphers.decrypt(participant.state),
@@ -213,7 +213,7 @@ module.exports = {
       })
       .catch(err => {
         console.log(err);
-        res.status(500).json({ message: "Error creating participant" });
+        res.status(500).json({ message: "Error finding participant" });
       });
   }
 };
