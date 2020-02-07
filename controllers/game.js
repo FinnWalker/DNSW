@@ -42,7 +42,7 @@ async function email(email, name, image_path, image_path_2) {
 }
 
 module.exports = {
-  async create: function(req, res) {
+  create: async function(req, res) {
     const player_name = sanitize(req.body.player_name);
     const name = sanitize(req.body.name);
     const date_of_birth = sanitize(req.body.date_of_birth);
@@ -60,16 +60,18 @@ module.exports = {
       home_team &&
       away_team
     ) {
-
-      await participantModel.find({name}).exec().then(() => {
-        if(err) {
-          res.status(500).json({ message: "An error occurred" });
-          return;
-        } else if (name) {
-          res.status(400).json({message: "Name taken"});
-          return;
-        }
-      });
+      await participantModel
+        .find({ name })
+        .exec()
+        .then(() => {
+          if (err) {
+            res.status(500).json({ message: "An error occurred" });
+            return;
+          } else if (name) {
+            res.status(400).json({ message: "Name taken" });
+            return;
+          }
+        });
 
       participantModel.create(
         {
