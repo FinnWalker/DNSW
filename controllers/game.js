@@ -63,12 +63,9 @@ module.exports = {
       await participantModel
         .find({ player_name })
         .exec()
-        .then((playerName, err) => {
-          if (err) {
-            console.log(err);
-            res.status(500).json({ message: "An error occurred" });
-          } else if (playerName) {
-            console.log(playerName);
+        .then(player => {
+          if (player) {
+            console.log(player);
             res.status(400).json({ message: "Name taken" });
           } else {
             participantModel.create(
@@ -94,6 +91,10 @@ module.exports = {
               }
             );
           }
+        })
+        .catch(err => {
+          console.log(err);
+          res.status(500).json({ message: "Error creating participant" });
         });
     } else {
       res.status(400).json({ message: "Please include all fields" });
