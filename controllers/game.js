@@ -64,7 +64,7 @@ module.exports = {
         .find({ player_name })
         .exec()
         .then((name, err) => {
-          if (err) {
+          if (playerName) {
             console.log(err);
             res.status(500).json({ message: "An error occurred" });
           } else if (playerName) {
