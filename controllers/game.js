@@ -147,8 +147,8 @@ module.exports = {
       if (err) {
         console.log(err);
         //} else if (files.image && fields.playerName && files.image_2) {
-      } else if (files.image && fields.playerName) {
-        const image_path = files.image.path;
+      } else if (files.image_2 && fields.playerName) {
+        const image_path = files.image_2.path;
         //const image_path_2 = files.image_2.path;
         const player_name = sanitize(fields.playerName);
         /*
