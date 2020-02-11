@@ -13,7 +13,7 @@ const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(morgan("combined"));
-app.use("/", express.static("public"));
+app.use("/dnsw/", express.static("public"));
 
 function verifyRequest(req, res, next) {
   if (req.headers["accesskey"] === process.env.ACCESS_KEY) {
