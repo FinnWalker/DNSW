@@ -138,6 +138,7 @@ module.exports = {
       { sort: { top_score: -1 } },
       (err, participants) => {
         for (let participant of participants) {
+          console.log(participant.scores);
           let scores = [];
           for (let score of participant.scores) {
             console.log(score);
