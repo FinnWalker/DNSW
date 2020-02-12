@@ -140,6 +140,7 @@ module.exports = {
         for (let participant of participants) {
           let scores = [];
           for (let score of participant.scores) {
+            console.log(score);
             if (
               score.timestamp > parseInt(start_date) &&
               score.timestamp < parseInt(end_date)
