@@ -114,7 +114,7 @@ module.exports = {
       (err, participants) => {
         for (let participant of participants) {
           let best_score = 0;
-          for (let score in participants.scores) {
+          for (let score in participant.scores) {
             if (score.score > best_score) best_score = score.score;
           }
           let player = {
