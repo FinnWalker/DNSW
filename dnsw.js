@@ -28,7 +28,8 @@ const game_controller = require("./controllers/game");
 
 app.post("/dnsw/player", verifyRequest, game_controller.create);
 
-app.post("/dnsw/players", verifyRequest, game_controller.players);
+app.get("/dnsw/players", verifyRequest, game_controller.players);
+app.post("/dnsw/players_extra", verifyRequest, game_controller.playersExtra);
 app.get("/dnsw/data", verifyRequest, game_controller.data);
 app.post("/dnsw/set_score", verifyRequest, game_controller.setScore);
 
