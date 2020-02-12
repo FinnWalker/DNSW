@@ -71,6 +71,7 @@ module.exports = {
             console.log(player);
             res.status(400).json({ message: "Name taken" });
           } else {
+            console.log(info_checkbox);
             participantModel.create(
               {
                 player_name,
@@ -78,7 +79,7 @@ module.exports = {
                 date_of_birth,
                 state,
                 email,
-                info_checkbox,
+                info_checkbox: info_checkbox === "True",
                 home_team,
                 away_team,
                 top_score: 0
