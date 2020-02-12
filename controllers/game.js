@@ -91,7 +91,10 @@ module.exports = {
                     .status(500)
                     .json({ message: "Error creating participant" });
                 } else {
-                  res.status(200).json({ participant });
+                  participant.scores.push({ score: 0, timestamp: 0 });
+                  participant
+                    .save()
+                    .then(res.status(200).json({ participant }));
                 }
               }
             );
