@@ -209,6 +209,7 @@ module.exports = {
             date_of_birth: ciphers.decrypt(participant.date_of_birth),
             state: ciphers.decrypt(participant.state),
             email: ciphers.decrypt(participant.email),
+            info_checkbox: participant.info_checkbox,
             home_team: participant.home_team,
             away_team: participant.away_team,
             top_score: participant.top_score
