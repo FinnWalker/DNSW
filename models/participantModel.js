@@ -23,6 +23,7 @@ const ParticipantSchema = new Schema({
   date_of_birth: String,
   state: String,
   email: String,
+  info_checkbox: Boolean,
   home_team: String,
   away_team: String,
   top_score: Number
