@@ -129,14 +129,13 @@ module.exports = {
   setScore: function(req, res) {
     const player_name = sanitize(req.body.playerName);
     const score = sanitize(req.body.score);
+    const timestamp = sanitize(req.body.timestamp);
+    if (!timestamp) timestamp = 0;
     if (player_name && score) {
       participantModel.findOne({ player_name }, (err, participant) => {
         if (participant) {
-          if (participant.top_score < score) {
-            participant.top_score = score;
-            participant.save();
-          }
-          res.json({ participant });
+          participant.scores.push({ score, timestamp });
+          participant.save().then(res.json({ participant }));
         } else {
           res.status(400).json({ message: "Player does not exist" });
         }
