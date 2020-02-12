@@ -26,10 +26,12 @@ const ParticipantSchema = new Schema({
   info_checkbox: Boolean,
   home_team: String,
   away_team: String,
-  scores: {
-    score: Number,
-    timestamp: Number
-  }
+  scores: [
+    {
+      score: Number,
+      timestamp: Number
+    }
+  ]
 });
 
 ParticipantSchema.pre("save", function(next) {
