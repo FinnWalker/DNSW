@@ -131,7 +131,7 @@ module.exports = {
     let start_date = sanitize(req.body.start_date);
     let end_date = sanitize(req.body.end_date);
     if (!start_date) start_date = 0;
-    if (!end_date) end_date = 999999999999;
+    if (!end_date) end_date = 999999999999999;
     participantModel.find(
       {},
       null,
@@ -141,14 +141,6 @@ module.exports = {
           console.log(participant.scores);
           let scores = [];
           for (let score of participant.scores) {
-            console.log(
-              "score.timestamp start_date " +
-                (score.timestamp > parseInt(start_date))
-            );
-            console.log(
-              "score.timestamp end_date " +
-                (score.timestamp < parseInt(end_date))
-            );
             if (
               score.timestamp > parseInt(start_date) &&
               score.timestamp < parseInt(end_date)
