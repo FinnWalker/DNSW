@@ -129,7 +129,7 @@ module.exports = {
   setScore: function(req, res) {
     const player_name = sanitize(req.body.playerName);
     const score = sanitize(req.body.score);
-    const timestamp = sanitize(req.body.timestamp);
+    let timestamp = sanitize(req.body.timestamp);
     if (!timestamp) timestamp = 0;
     if (player_name && score) {
       participantModel.findOne({ player_name }, (err, participant) => {
