@@ -145,6 +145,14 @@ module.exports = {
               score.timestamp > parseInt(start_date) &&
               score.timestamp < parseInt(end_date)
             ) {
+              console.log(
+                "score.timestamp start_date " + score.timestamp >
+                  parseInt(start_date)
+              );
+              console.log(
+                "score.timestamp end_date " + score.timestamp >
+                  parseInt(end_date)
+              );
               scores.push(score.score);
             }
           }
