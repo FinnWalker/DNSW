@@ -113,11 +113,15 @@ module.exports = {
       { sort: { top_score: -1 } },
       (err, participants) => {
         for (let participant of participants) {
+          let best_score = 0;
+          for (let score in participants.scores) {
+            if (score.score > best_score) best_score = score.score;
+          }
           let player = {
             playerName: participant.player_name,
             homeTeam: participant.home_team,
             awayTeam: participant.away_team,
-            topScore: participant.top_score.toString()
+            topScore: best_score.toString()
             //email: participant.email
           };
           players.push(player);
