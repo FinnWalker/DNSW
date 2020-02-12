@@ -124,7 +124,7 @@ module.exports = {
             playerName: participant.player_name,
             homeTeam: participant.home_team,
             awayTeam: participant.away_team,
-            topScore: best_score.toString()
+            topScore: best_score.toFixed(2)
             //email: participant.email
           };
           players.push(player);
@@ -161,7 +161,7 @@ module.exports = {
               playerName: participant.player_name,
               homeTeam: participant.home_team,
               awayTeam: participant.away_team,
-              topScore: Math.max(...scores).toString()
+              topScore: Math.max(...scores).toFixed(2)
               //email: participant.email
             };
             players.push(player);
