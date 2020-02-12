@@ -107,20 +107,36 @@ module.exports = {
   },
   players: function(req, res) {
     let players = [];
+    let start_date = sanitize(req.body.start_date);
+    let end_date = sanitize(req.body.end_date);
+    if (!start_date) start_date = 0;
+    if (!end_date) end_date = Infinity;
     participantModel.find(
       {},
       null,
       { sort: { top_score: -1 } },
       (err, participants) => {
         for (let participant of participants) {
-          let player = {
-            playerName: participant.player_name,
-            homeTeam: participant.home_team,
-            awayTeam: participant.away_team,
-            topScore: participant.top_score.toString()
-            //email: participant.email
-          };
-          players.push(player);
+          let scores = [];
+          for (let score of participant.scores) {
+            if (
+              score.timestamp > parseInt(start_date) &&
+              score.timestamp < parseInt(end_date)
+            ) {
+              scores.push(score.score);
+            }
+          }
+
+          if (scores.length > 0) {
+            let player = {
+              playerName: participant.player_name,
+              homeTeam: participant.home_team,
+              awayTeam: participant.away_team,
+              topScore: Math.max(...scores).toString()
+              //email: participant.email
+            };
+            players.push(player);
+          }
         }
         res.json({ players });
       }
