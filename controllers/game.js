@@ -130,7 +130,13 @@ module.exports = {
           players.push(player);
         }
         res.json({
-          players: players.sort((a, b) => (a.topScore > b.topScore ? 1 : -1))
+          players: players.sort(function(a, b) {
+            return a.topScore > b.topScore
+              ? 1
+              : b.topScore > a.topScore
+              ? -1
+              : 0;
+          })
         });
       }
     );
@@ -170,7 +176,14 @@ module.exports = {
           }
         }
         res.json({
-          players: players.sort((a, b) => (a.topScore > b.topScore ? 1 : -1))
+          //players: players.sort((a, b) => (a.topScore > b.topScore ? 1 : -1))
+          players: players.sort(function(a, b) {
+            return a.topScore > b.topScore
+              ? 1
+              : b.topScore > a.topScore
+              ? -1
+              : 0;
+          })
         });
       }
     );
