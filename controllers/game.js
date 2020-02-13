@@ -130,7 +130,7 @@ module.exports = {
           players.push(player);
         }
         res.json({
-          players: player.sort((a, b) => (a.topScore > b.topScore ? 1 : -1))
+          players: players.sort((a, b) => (a.topScore > b.topScore ? 1 : -1))
         });
       }
     );
@@ -170,7 +170,7 @@ module.exports = {
           }
         }
         res.json({
-          players: player.sort((a, b) => (a.topScore > b.topScore ? 1 : -1))
+          players: players.sort((a, b) => (a.topScore > b.topScore ? 1 : -1))
         });
       }
     );
