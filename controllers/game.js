@@ -129,7 +129,9 @@ module.exports = {
           };
           players.push(player);
         }
-        res.json({ players });
+        res.json({
+          players: player.sort((a, b) => (a.topScore > b.topScore ? 1 : -1))
+        });
       }
     );
   },
@@ -167,7 +169,9 @@ module.exports = {
             players.push(player);
           }
         }
-        res.json({ players });
+        res.json({
+          players: player.sort((a, b) => (a.topScore > b.topScore ? 1 : -1))
+        });
       }
     );
   },
