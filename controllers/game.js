@@ -8,7 +8,7 @@ const nodemailer = require("nodemailer");
 const ciphers = require("../tools/ciphers");
 
 //async function email(email, name, image_path, image_path_2) {
-async function email(email, name, image_path) {
+async function email(email, name, image_path, score) {
   let transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 587,
