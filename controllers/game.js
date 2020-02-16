@@ -1,8 +1,8 @@
 const participantModel = require("../models/participantModel");
 const sanitize = require("mongo-sanitize");
 const formidable = require("formidable");
-//const fs = require("fs");
-//const path = require("path");
+const fs = require("fs");
+const path = require("path");
 const nodemailer = require("nodemailer");
 
 const ciphers = require("../tools/ciphers");
@@ -248,26 +248,72 @@ module.exports = {
       }
     });
   },
+  // data: (req, res) => {
+  //   participantModel
+  //     .find()
+  //     .exec()
+  //     .then(participants => {
+  //       let data = [];
+  //       for (let participant of participants) {
+  //         data.push({
+  //           player_name: participant.player_name,
+  //           name: ciphers.decrypt(participant.name),
+  //           date_of_birth: ciphers.decrypt(participant.date_of_birth),
+  //           state: ciphers.decrypt(participant.state),
+  //           email: ciphers.decrypt(participant.email),
+  //           info_checkbox: participant.info_checkbox,
+  //           home_team: participant.home_team,
+  //           away_team: participant.away_team,
+  //           top_score: participant.top_score
+  //         });
+  //       }
+  //       res.status(200).json(data);
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //       res.status(500).json({ message: "Error finding participant" });
+  //     });
+  // }
   data: (req, res) => {
     participantModel
       .find()
       .exec()
       .then(participants => {
-        let data = [];
+        let content =
+          "Player Name, Name, Date of Birth, State, Email, Info Checkbox, Home Team, Away Team, Top Score\n";
+        //let data = [];
         for (let participant of participants) {
-          data.push({
-            player_name: participant.player_name,
-            name: ciphers.decrypt(participant.name),
-            date_of_birth: ciphers.decrypt(participant.date_of_birth),
-            state: ciphers.decrypt(participant.state),
-            email: ciphers.decrypt(participant.email),
-            info_checkbox: participant.info_checkbox,
-            home_team: participant.home_team,
-            away_team: participant.away_team,
-            top_score: participant.top_score
-          });
+          content += `${participant.player_name},${ciphers.decrypt(
+            participant.name
+          )},${ciphers.decrypt(participant.date_of_birth)},${ciphers.decrypt(
+            participant.state
+          )},${ciphers.decrypt(participant.email)},${
+            participant.info_checkbox
+          },${participant.home_team},${participant.away_team},${
+            participant.top_score
+          }\n`;
+          // data.push({
+          //   player_name: participant.player_name,
+          //   name: ciphers.decrypt(participant.name),
+          //   date_of_birth: ciphers.decrypt(participant.date_of_birth),
+          //   state: ciphers.decrypt(participant.state),
+          //   email: ciphers.decrypt(participant.email),
+          //   info_checkbox: participant.info_checkbox,
+          //   home_team: participant.home_team,
+          //   away_team: participant.away_team,
+          //   top_score: participant.top_score
+          // });
         }
-        res.status(200).json(data);
+        fs.writeFile("ICC_T20_Cricket.csv", content, function(err) {
+          if (err) throw err;
+          const directory = path.join(__dirname, "..", "ICC_T20_Cricket.csv");
+          res.set({
+            "Content-Disposition": "attachment; filename=ICC_T20_Cricket.csv",
+            "Content-type": "text/csv"
+          });
+          res.sendFile(directory);
+        });
+        //res.status(200).json(data);
       })
       .catch(err => {
         console.log(err);
