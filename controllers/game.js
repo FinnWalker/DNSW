@@ -7,6 +7,19 @@ const nodemailer = require("nodemailer");
 
 const ciphers = require("../tools/ciphers");
 
+const teams = [
+  "Australia",
+  "Bangladesh",
+  "England",
+  "India",
+  "New Zealand",
+  "Pakistan",
+  "South Africa",
+  "Sri Lanka",
+  "Thailand",
+  "West Indies"
+];
+
 //async function email(email, name, image_path, image_path_2) {
 async function email(email, name, image_path, score) {
   let transporter = nodemailer.createTransport({
@@ -283,15 +296,19 @@ module.exports = {
           "Player Name, Name, Date of Birth, State, Email, Info Checkbox, Home Team, Away Team, Top Score\n";
         //let data = [];
         for (let participant of participants) {
+          let best_score = 0;
+          for (let score of participant.scores) {
+            if (score.score > best_score) best_score = score.score;
+          }
           content += `${participant.player_name},${ciphers.decrypt(
             participant.name
           )},${ciphers.decrypt(participant.date_of_birth)},${ciphers.decrypt(
             participant.state
           )},${ciphers.decrypt(participant.email)},${
             participant.info_checkbox
-          },${participant.home_team},${participant.away_team},${
-            participant.top_score
-          }\n`;
+          },${teams[participant.home_team]},${
+            teams[participant.away_team]
+          },${best_score}\n`;
           // data.push({
           //   player_name: participant.player_name,
           //   name: ciphers.decrypt(participant.name),
