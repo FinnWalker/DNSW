@@ -287,28 +287,77 @@ module.exports = {
   //       res.status(500).json({ message: "Error finding participant" });
   //     });
   // }
+  // data: (req, res) => {
+  //   participantModel
+  //     .find()
+  //     .exec()
+  //     .then(participants => {
+  //       let content =
+  //         "Player Name, Name, Date of Birth, State, Email, Info Checkbox, Home Team, Away Team, Top Score\n";
+  //       //let data = [];
+  //       for (let participant of participants) {
+  //         let best_score = 0;
+  //         for (let score of participant.scores) {
+  //           if (score.score > best_score) best_score = score.score;
+  //         }
+  //         content += `${participant.player_name},${ciphers.decrypt(
+  //           participant.name
+  //         )},${ciphers.decrypt(participant.date_of_birth)},${ciphers.decrypt(
+  //           participant.state
+  //         )},${ciphers.decrypt(participant.email)},${
+  //           participant.info_checkbox
+  //         },${teams[participant.home_team]},${
+  //           teams[participant.away_team]
+  //         },${best_score}\n`;
+  //         // data.push({
+  //         //   player_name: participant.player_name,
+  //         //   name: ciphers.decrypt(participant.name),
+  //         //   date_of_birth: ciphers.decrypt(participant.date_of_birth),
+  //         //   state: ciphers.decrypt(participant.state),
+  //         //   email: ciphers.decrypt(participant.email),
+  //         //   info_checkbox: participant.info_checkbox,
+  //         //   home_team: participant.home_team,
+  //         //   away_team: participant.away_team,
+  //         //   top_score: participant.top_score
+  //         // });
+  //       }
+  //       fs.writeFile("ICC_T20_Cricket.csv", content, function(err) {
+  //         if (err) throw err;
+  //         const directory = path.join(__dirname, "..", "ICC_T20_Cricket.csv");
+  //         res.set({
+  //           "Content-Disposition": "attachment; filename=ICC_T20_Cricket.csv",
+  //           "Content-type": "text/csv"
+  //         });
+  //         res.sendFile(directory);
+  //       });
+  //       //res.status(200).json(data);
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //       res.status(500).json({ message: "Error finding participant" });
+  //     });
+  // }
   data: (req, res) => {
     participantModel
       .find()
       .exec()
       .then(participants => {
         let content =
-          "Player Name, Name, Date of Birth, State, Email, Info Checkbox, Home Team, Away Team, Top Score\n";
+          "Player Name, Name, Date of Birth, State, Email, Info Checkbox, Home Team, Away Team, Score, timestamp\n";
         //let data = [];
         for (let participant of participants) {
-          let best_score = 0;
           for (let score of participant.scores) {
-            if (score.score > best_score) best_score = score.score;
+            content += `${participant.player_name},${ciphers.decrypt(
+              participant.name
+            )},${ciphers.decrypt(participant.date_of_birth)},${ciphers.decrypt(
+              participant.state
+            )},${ciphers.decrypt(participant.email)},${
+              participant.info_checkbox
+            },${teams[participant.home_team]},${
+              teams[participant.away_team]
+            },${score},${score.timestamp}\n`;
           }
-          content += `${participant.player_name},${ciphers.decrypt(
-            participant.name
-          )},${ciphers.decrypt(participant.date_of_birth)},${ciphers.decrypt(
-            participant.state
-          )},${ciphers.decrypt(participant.email)},${
-            participant.info_checkbox
-          },${teams[participant.home_team]},${
-            teams[participant.away_team]
-          },${best_score}\n`;
+
           // data.push({
           //   player_name: participant.player_name,
           //   name: ciphers.decrypt(participant.name),
