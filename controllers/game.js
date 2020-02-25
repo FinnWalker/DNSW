@@ -347,15 +347,17 @@ module.exports = {
         //let data = [];
         for (let participant of participants) {
           for (let score of participant.scores) {
-            content += `${participant.player_name},${ciphers.decrypt(
-              participant.name
-            )},${ciphers.decrypt(participant.date_of_birth)},${ciphers.decrypt(
-              participant.state
-            )},${ciphers.decrypt(participant.email)},${
-              participant.info_checkbox
-            },${teams[participant.home_team]},${teams[participant.away_team]},${
-              score.score
-            },${score.timestamp}\n`;
+            if (score.timestamp !== 0) {
+              content += `${participant.player_name},${ciphers.decrypt(
+                participant.name
+              )},${ciphers.decrypt(
+                participant.date_of_birth
+              )},${ciphers.decrypt(participant.state)},${ciphers.decrypt(
+                participant.email
+              )},${participant.info_checkbox},${teams[participant.home_team]},${
+                teams[participant.away_team]
+              },${score.score},${score.timestamp}\n`;
+            }
           }
 
           // data.push({
