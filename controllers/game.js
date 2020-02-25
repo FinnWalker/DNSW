@@ -356,16 +356,15 @@ module.exports = {
                 participant.email
               )},${participant.info_checkbox},${teams[participant.home_team]},${
                 teams[participant.away_team]
-              },${score.score},${new Date(score.timestamp).toLocaleString(
-                undefined,
-                {
+              },${score.score},${new Date(score.timestamp)
+                .toLocaleString(undefined, {
                   timeZone: "Australia/Sydney",
                   weekday: "long",
                   year: "numeric",
                   month: "long",
                   day: "numeric"
-                }
-              )}\n`;
+                })
+                .replace(/,/g, "")}\n`;
             }
           }
 
