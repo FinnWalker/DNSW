@@ -353,9 +353,9 @@ module.exports = {
               participant.state
             )},${ciphers.decrypt(participant.email)},${
               participant.info_checkbox
-            },${teams[participant.home_team]},${
-              teams[participant.away_team]
-            },${score},${score.timestamp}\n`;
+            },${teams[participant.home_team]},${teams[participant.away_team]},${
+              score.score
+            },${score.timestamp}\n`;
           }
 
           // data.push({
