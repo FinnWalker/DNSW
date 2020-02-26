@@ -362,7 +362,9 @@ module.exports = {
                   weekday: "long",
                   year: "numeric",
                   month: "long",
-                  day: "numeric"
+                  day: "numeric",
+                  hour: "numeric",
+                  minute: "numeric"
                 })
                 .replace(/,/g, "")}\n`;
             }
