@@ -23,6 +23,14 @@ function verifyRequest(req, res, next) {
     res.status(400).json({ message: "Access denied" });
   }
 }
+function verifyRequestWithPassword(req, res, next) {
+  if (req.body.password === "DN2-SW0") {
+    next();
+  } else {
+    console.log(req.headers);
+    res.status(400).json({ message: "Access denied" });
+  }
+}
 
 const game_controller = require("./controllers/game");
 
@@ -30,7 +38,7 @@ app.post("/dnsw/player", verifyRequest, game_controller.create);
 
 app.get("/dnsw/players", verifyRequest, game_controller.players);
 app.post("/dnsw/players_extra", verifyRequest, game_controller.playersExtra);
-app.get("/dnsw/data", verifyRequest, game_controller.data);
+app.get("/dnsw/data", verifyRequestWithPassword, game_controller.data);
 app.post("/dnsw/set_score", verifyRequest, game_controller.setScore);
 
 app.post("/dnsw/send_image", verifyRequest, game_controller.sendImage);
