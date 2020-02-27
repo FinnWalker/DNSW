@@ -24,7 +24,7 @@ function verifyRequest(req, res, next) {
   }
 }
 function verifyRequestWithPassword(req, res, next) {
-  if (req.body.password === "password") {
+  if (req.body.password === "Dn2-Sw0") {
     next();
   } else {
     console.log(req.headers);
