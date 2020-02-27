@@ -24,7 +24,7 @@ function verifyRequest(req, res, next) {
   }
 }
 function verifyRequestWithPassword(req, res, next) {
-  if (req.body.password === "DN2-SW0") {
+  if (req.body.password === "password") {
     next();
   } else {
     console.log(req.headers);
@@ -38,7 +38,7 @@ app.post("/dnsw/player", verifyRequest, game_controller.create);
 
 app.get("/dnsw/players", verifyRequest, game_controller.players);
 app.post("/dnsw/players_extra", verifyRequest, game_controller.playersExtra);
-app.get("/dnsw/data", verifyRequestWithPassword, game_controller.data);
+app.post("/dnsw/data", verifyRequestWithPassword, game_controller.data);
 app.post("/dnsw/set_score", verifyRequest, game_controller.setScore);
 
 app.post("/dnsw/send_image", verifyRequest, game_controller.sendImage);
